@@ -11,6 +11,7 @@ defmodule EmploReward.Accounts.User do
     field :image, :string
     field :points, :integer, default: 0
     field :role, :string, default: "member"
+    field :points_granted, :integer, default: 0
 
     timestamps()
   end
@@ -51,7 +52,7 @@ defmodule EmploReward.Accounts.User do
   defp validate_password(changeset, opts) do
     changeset
     |> validate_required([:password])
-    |> validate_length(:password, min: 6, max: 72)
+    |> validate_length(:password, min: 8, max: 72)
     # |> validate_format(:password, ~r/[a-z]/, message: "at least one lower case character")
     # |> validate_format(:password, ~r/[A-Z]/, message: "at least one upper case character")
     # |> validate_format(:password, ~r/[!?@#$%^&*_0-9]/, message: "at least one digit or punctuation character")
@@ -103,6 +104,13 @@ defmodule EmploReward.Accounts.User do
     |> cast(attrs, [:password])
     |> validate_confirmation(:password, message: "does not match password")
     |> validate_password(opts)
+  end
+
+  ## Changeset for granting points to users
+  def points_changeset(user, attrs \\ %{}) do
+    user
+    |> cast(attrs, [:points_granted, :id])
+    |> validate_number(:points_granted, greater_than: 0)
   end
 
   @doc """

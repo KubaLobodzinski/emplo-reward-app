@@ -10,7 +10,7 @@ config :pbkdf2_elixir, :rounds, 1
 # Run `mix help test` for more information.
 config :emplo_reward, EmploReward.Repo,
   username: "postgres",
-  password: "postgres",
+  password: "admin",
   hostname: "localhost",
   database: "emplo_reward_test#{System.get_env("MIX_TEST_PARTITION")}",
   pool: Ecto.Adapters.SQL.Sandbox,

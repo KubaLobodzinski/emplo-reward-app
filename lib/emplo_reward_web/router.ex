@@ -18,9 +18,9 @@ defmodule EmploRewardWeb.Router do
   end
 
   scope "/", EmploRewardWeb do
-    pipe_through :browser
+    pipe_through [:browser, :require_authenticated_user]
 
-    get "/", PageController, :index
+    get "/", UserMainPageController, :index
   end
 
   # Other scopes may use custom stacks.
@@ -78,6 +78,7 @@ defmodule EmploRewardWeb.Router do
     get "/users/settings", UserSettingsController, :edit
     put "/users/settings", UserSettingsController, :update
     get "/users/settings/confirm_email/:token", UserSettingsController, :confirm_email
+    post "/users/add_points", UserAddPointsController, :add
   end
 
   scope "/", EmploRewardWeb do

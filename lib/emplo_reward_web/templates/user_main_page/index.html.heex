@@ -1,0 +1,20 @@
+<%# Displaying users from database and adding forms to grant them points %>
+<div class="container">
+    <div>
+      <%= for user <- @users do %>
+      <%= if user != @current_user do %>
+        <div class="d-flex w-100 justify-content-between">
+            <h5>
+            <%= user.full_name %>
+            </h5>
+            <%= form_for @changeset, Routes.user_add_points_path(@conn, :add), fn f ->  %>
+            <%= range_input f, :points_granted, min: 0, max: @current_user.points, step: 1, oninput: "this.nextElementSibling.value = this.value" %>
+            <output></output>
+            <%= hidden_input f, :id, value: user.id %>
+            <p><%= submit "Grant points" %></p>
+            <% end %>
+        </div>
+      <% end %>
+      <% end %>
+    </div>
+</div>
