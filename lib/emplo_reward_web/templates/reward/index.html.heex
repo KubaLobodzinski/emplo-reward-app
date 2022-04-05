@@ -1,0 +1,31 @@
+<h1>Listing Rewards</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Description</th>
+      <th>Point cost</th>
+
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+<%= for reward <- @rewards do %>
+    <tr>
+      <td><%= reward.name %></td>
+      <td><%= reward.description %></td>
+      <td><%= reward.point_cost %></td>
+
+      <td>
+        <span><%= link "Show", to: Routes.reward_path(@conn, :show, reward) %></span>
+        <span><%= link "Edit", to: Routes.reward_path(@conn, :edit, reward) %></span>
+        <span><%= link "Delete", to: Routes.reward_path(@conn, :delete, reward), method: :delete, data: [confirm: "Are you sure?"] %></span>
+        <span><%= link "Get reward", to: Routes.reward_reward_path(@conn, :grant_reward, reward) %></span>
+      </td>
+    </tr>
+<% end %>
+  </tbody>
+</table>
+
+<span><%= link "New Reward", to: Routes.reward_path(@conn, :new) %></span>

@@ -4,8 +4,8 @@ defmodule EmploReward.Accounts do
   """
 
   import Ecto.Query, warn: false
-  alias EmploReward.Repo
 
+  alias EmploReward.Repo
   alias EmploReward.Accounts.{User, UserToken, UserNotifier}
 
 
@@ -175,10 +175,10 @@ defmodule EmploReward.Accounts do
     end
   end
 
-  ## Points fucntions
+  ## Points functions
 
-  def add_points_to_user(%{"id" => id} = attrs \\ %{}) do
-    %User{id: String.to_integer(id)}
+  def change_user_granted_points(%{"id" => id} = attrs \\ %{}) do
+    %User{id: id}
     |> User.points_changeset(attrs)
     |> Repo.update()
   end

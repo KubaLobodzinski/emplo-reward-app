@@ -78,7 +78,6 @@ defmodule EmploRewardWeb.Router do
     get "/users/settings", UserSettingsController, :edit
     put "/users/settings", UserSettingsController, :update
     get "/users/settings/confirm_email/:token", UserSettingsController, :confirm_email
-    post "/users/add_points", UserAddPointsController, :add
   end
 
   scope "/", EmploRewardWeb do
@@ -89,5 +88,17 @@ defmodule EmploRewardWeb.Router do
     post "/users/confirm", UserConfirmationController, :create
     get "/users/confirm/:token", UserConfirmationController, :edit
     post "/users/confirm/:token", UserConfirmationController, :update
+  end
+
+  ## Points routes
+
+  scope "/", EmploRewardWeb do
+    pipe_through [:browser, :require_authenticated_user]
+
+    post "/users/add_points", UserAddPointsController, :add
+    resources "/rewards", RewardController do
+      get "/get_reward", RewardController, :grant_reward
+    end
+
   end
 end
