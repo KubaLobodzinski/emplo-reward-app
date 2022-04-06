@@ -179,6 +179,12 @@ defmodule EmploReward.Accounts do
 
   def change_user_granted_points(%{"id" => id} = attrs \\ %{}) do
     %User{id: id}
+    |> User.granted_points_changeset(attrs)
+    |> Repo.update()
+  end
+
+  def change_user_points(%{"id" => id} = attrs \\ %{}) do
+    %User{id: id}
     |> User.points_changeset(attrs)
     |> Repo.update()
   end

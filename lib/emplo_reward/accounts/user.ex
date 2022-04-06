@@ -9,9 +9,9 @@ defmodule EmploReward.Accounts.User do
     field :confirmed_at, :naive_datetime
     field :full_name, :string
     field :image, :string
-    field :points, :integer, default: 0
+    field :points, :integer
     field :role, :string, default: "member"
-    field :points_granted, :integer, default: 0
+    field :points_granted, :integer
 
     timestamps()
   end
@@ -106,11 +106,15 @@ defmodule EmploReward.Accounts.User do
     |> validate_password(opts)
   end
 
-  ## Changeset for granting points to users
-  def points_changeset(user, attrs \\ %{}) do
+  ## Changeset for points
+  def granted_points_changeset(user, attrs \\ %{}) do
     user
     |> cast(attrs, [:points_granted, :id])
-    |> validate_number(:points_granted, greater_than: 0)
+  end
+
+  def points_changeset(user, attrs \\ %{}) do
+    user
+    |> cast(attrs, [:id, :points])
   end
 
   @doc """

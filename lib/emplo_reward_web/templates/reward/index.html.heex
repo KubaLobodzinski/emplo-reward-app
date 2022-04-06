@@ -18,10 +18,11 @@
       <td><%= reward.point_cost %></td>
 
       <td>
-        <span><%= link "Show", to: Routes.reward_path(@conn, :show, reward) %></span>
+        <%= if @current_user.role == "admin" do %>
         <span><%= link "Edit", to: Routes.reward_path(@conn, :edit, reward) %></span>
         <span><%= link "Delete", to: Routes.reward_path(@conn, :delete, reward), method: :delete, data: [confirm: "Are you sure?"] %></span>
-        <span><%= link "Get reward", to: Routes.reward_reward_path(@conn, :grant_reward, reward) %></span>
+        <% end %>
+        <span><%= link "Get reward", to: Routes.reward_path(@conn, :grant_reward, reward), data: [confirm: "Are you sure you want this reward?"] %></span>
       </td>
     </tr>
 <% end %>

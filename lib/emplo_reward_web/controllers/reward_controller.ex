@@ -17,19 +17,14 @@ defmodule EmploRewardWeb.RewardController do
 
   def create(conn, %{"reward" => reward_params}) do
     case Rewards.create_reward(reward_params) do
-      {:ok, reward} ->
+      {:ok, _reward} ->
         conn
         |> put_flash(:info, "Reward created successfully.")
-        |> redirect(to: Routes.reward_path(conn, :show, reward))
+        |> redirect(to: Routes.reward_path(conn, :index))
 
       {:error, %Ecto.Changeset{} = changeset} ->
         render(conn, "new.html", changeset: changeset)
     end
-  end
-
-  def show(conn, %{"id" => id}) do
-    reward = Rewards.get_reward!(id)
-    render(conn, "show.html", reward: reward)
   end
 
   def edit(conn, %{"id" => id}) do
@@ -42,10 +37,10 @@ defmodule EmploRewardWeb.RewardController do
     reward = Rewards.get_reward!(id)
 
     case Rewards.update_reward(reward, reward_params) do
-      {:ok, reward} ->
+      {:ok, _reward} ->
         conn
         |> put_flash(:info, "Reward updated successfully.")
-        |> redirect(to: Routes.reward_path(conn, :show, reward))
+        |> redirect(to: Routes.reward_path(conn, :index))
 
       {:error, %Ecto.Changeset{} = changeset} ->
         render(conn, "edit.html", reward: reward, changeset: changeset)

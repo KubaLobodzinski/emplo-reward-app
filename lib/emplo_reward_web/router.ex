@@ -96,9 +96,17 @@ defmodule EmploRewardWeb.Router do
     pipe_through [:browser, :require_authenticated_user]
 
     post "/users/add_points", UserAddPointsController, :add
-    resources "/rewards", RewardController do
-      get "/get_reward", RewardController, :grant_reward
+    get "/rewards", RewardController, :index
+    get "/:reward_id/get_reward", RewardController, :grant_reward
     end
 
-  end
+    scope "/", EmploRewardWeb do
+      pipe_through [:browser, :require_admin_user]
+      get "/rewards/:id/edit", RewardController, :edit
+      get "/rewards/new", RewardController, :new
+      post "/rewards", RewardController, :create
+      patch "/rewards/:id", RewardController, :update
+      put "/rewards/:id", RewardController, :update
+      delete "/rewards/:id", RewardController, :delete
+    end
 end

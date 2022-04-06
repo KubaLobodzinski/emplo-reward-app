@@ -132,7 +132,6 @@ defmodule EmploRewardWeb.UserAuth do
       conn
     else
       conn
-      |> put_flash(:error, "You must log in to access this page.")
       |> maybe_store_return_to()
       |> redirect(to: Routes.user_session_path(conn, :new))
       |> halt()
@@ -146,4 +145,15 @@ defmodule EmploRewardWeb.UserAuth do
   defp maybe_store_return_to(conn), do: conn
 
   defp signed_in_path(_conn), do: "/"
+
+  def require_admin_user(conn, _opts) do
+    if conn.assigns.current_user.role == "admin" do
+      conn
+    else
+      conn
+      |> put_flash(:error, "You must be an admin to acces this page!")
+      |> redirect(to: Routes.reward_path(conn, :index))
+      |> halt()
+    end
+  end
 end
