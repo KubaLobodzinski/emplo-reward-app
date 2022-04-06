@@ -1,0 +1,22 @@
+<h1>Your Rewards History</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Reward name</th>
+      <th>Reward cost</th>
+      <th>Date</th>
+
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+<%= for reward <- @rewards do %>
+    <tr>
+      <td><%= reward.reward_name %></td>
+      <td><%= reward.reward_cost %></td>
+      <td><%= reward.inserted_at %></td>
+    </tr>
+<% end %>
+  </tbody>
+</table>

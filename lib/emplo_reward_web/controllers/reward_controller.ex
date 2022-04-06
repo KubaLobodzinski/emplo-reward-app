@@ -56,16 +56,20 @@ defmodule EmploRewardWeb.RewardController do
     |> redirect(to: Routes.reward_path(conn, :index))
   end
 
+  ## User gets the reward, function checks if he/she has enough points, then it creates rewards_history entry and gives him a reward
+
   def grant_reward(conn, %{"reward_id" => id} = _attrs) do
     reward = Rewards.get_reward!(id)
     new_points_value = conn.assigns.current_user.points_granted - reward.point_cost
+    entry = %{"user_id" => conn.assigns.current_user.id, "reward_name" => reward.name, "reward_cost" => reward.point_cost}
+    user_params = %{"id" => conn.assigns.current_user.id, "points_granted" => new_points_value}
 
     case user_has_enough_points?(conn, reward) do
       true ->
-        user_params = %{"id" => conn.assigns.current_user.id, "points_granted" => new_points_value}
         case Accounts.change_user_granted_points(user_params) do
           {:ok, _user} ->
             conn
+            |> history_entry(entry)
             |> put_flash(:info, "Reward granted! You will get an email with your reward soon.")
             |> redirect(to: Routes.reward_path(conn, :index))
           {:error, _} ->
@@ -86,6 +90,11 @@ defmodule EmploRewardWeb.RewardController do
     else
       false
     end
+  end
+
+  defp history_entry(conn, entry) do
+     Rewards.create_history_entry(entry)
+     conn
   end
 
 end

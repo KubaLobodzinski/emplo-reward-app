@@ -98,6 +98,7 @@ defmodule EmploRewardWeb.Router do
     post "/users/add_points", UserAddPointsController, :add
     get "/rewards", RewardController, :index
     get "/:reward_id/get_reward", RewardController, :grant_reward
+    get "/rewards/history", RewardHistoryController, :user_history
     end
 
     scope "/", EmploRewardWeb do
@@ -108,5 +109,6 @@ defmodule EmploRewardWeb.Router do
       patch "/rewards/:id", RewardController, :update
       put "/rewards/:id", RewardController, :update
       delete "/rewards/:id", RewardController, :delete
+      get "rewards/history/admin", RewardHistoryController, :admin_history
     end
 end

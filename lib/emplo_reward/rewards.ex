@@ -6,7 +6,7 @@ defmodule EmploReward.Rewards do
   import Ecto.Query, warn: false
   alias EmploReward.Repo
 
-  alias EmploReward.Rewards.Reward
+  alias EmploReward.Rewards.{Reward, RewardHistory}
 
   @doc """
   Returns the list of rewards.
@@ -100,5 +100,30 @@ defmodule EmploReward.Rewards do
   """
   def change_reward(%Reward{} = reward, attrs \\ %{}) do
     Reward.changeset(reward, attrs)
+  end
+
+  ## Rewards_history
+
+  def list_rewards_history do
+    Repo.all(RewardHistory)
+  end
+
+  def create_history_entry(attrs \\ %{}) do
+    %RewardHistory{}
+    |> RewardHistory.changeset(attrs)
+    |> Repo.insert()
+  end
+
+  def get_rewards_history_by_month(params) do
+    search_term = get_in(params, ["query"])
+    RewardHistory
+    |> RewardHistory.search_by_month(search_term)
+    |> Repo.all()
+  end
+
+  def get_rewards_history_by_user(params) do
+    RewardHistory
+    |> RewardHistory.search_by_user(params)
+    |> Repo.all()
   end
 end

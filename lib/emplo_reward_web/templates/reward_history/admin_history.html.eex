@@ -1,0 +1,41 @@
+<h1>Rewards History</h1>
+
+<%= form_for @conn, Routes.reward_history_path(@conn, :admin_history), [method: :get], fn f -> %>
+ <%= select(f, :query, [
+                        "January": "01",
+                        "February": "02",
+                        "March": "03",
+                        "April": "04",
+                        "May": "05",
+                        "June": "06",
+                        "July": "07",
+                        "August": "08",
+                        "September": "09",
+                        "October": "10",
+                        "November": "11",
+                        "December": "12",
+                        ])%>
+
+ <%= submit "Search" %>
+<% end %>
+<table>
+  <thead>
+    <tr>
+      <th>User ID </th>
+      <th>Reward name</th>
+      <th>Reward cost</th>
+      <th>Date</th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+<%= for reward <- @rewards do %>
+    <tr>
+      <td><%= reward.user_id %></td>
+      <td><%= reward.reward_name %></td>
+      <td><%= reward.reward_cost %></td>
+      <td><%= reward.inserted_at %></td>
+    </tr>
+<% end %>
+  </tbody>
+</table>

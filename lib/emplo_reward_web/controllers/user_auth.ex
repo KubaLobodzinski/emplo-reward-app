@@ -152,7 +152,7 @@ defmodule EmploRewardWeb.UserAuth do
     else
       conn
       |> put_flash(:error, "You must be an admin to acces this page!")
-      |> redirect(to: Routes.reward_path(conn, :index))
+      |> redirect(to: Routes.user_main_page_path(conn, :index))
       |> halt()
     end
   end

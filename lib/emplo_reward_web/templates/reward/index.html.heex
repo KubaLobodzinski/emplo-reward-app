@@ -29,4 +29,6 @@
   </tbody>
 </table>
 
+<%= if @current_user.role == "admin" do %>
 <span><%= link "New Reward", to: Routes.reward_path(@conn, :new) %></span>
+<% end %>
