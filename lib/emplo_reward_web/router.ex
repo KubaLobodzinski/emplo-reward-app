@@ -18,7 +18,7 @@ defmodule EmploRewardWeb.Router do
   end
 
   scope "/", EmploRewardWeb do
-    pipe_through [:browser, :require_authenticated_user]
+    pipe_through [:browser, :require_authenticated_user, :redirect_if_user_is_admin]
 
     get "/", UserMainPageController, :index
   end
@@ -93,22 +93,25 @@ defmodule EmploRewardWeb.Router do
   ## Points routes
 
   scope "/", EmploRewardWeb do
-    pipe_through [:browser, :require_authenticated_user]
+    pipe_through [:browser, :require_authenticated_user, :redirect_if_user_is_admin]
 
     post "/users/add_points", UserAddPointsController, :add
     get "/rewards", RewardController, :index
     get "/:reward_id/get_reward", RewardController, :grant_reward
     get "/rewards/history", RewardHistoryController, :user_history
+
     end
 
     scope "/", EmploRewardWeb do
       pipe_through [:browser, :require_admin_user]
+      get "/rewards/admin_list", RewardController, :admin_index
       get "/rewards/:id/edit", RewardController, :edit
       get "/rewards/new", RewardController, :new
       post "/rewards", RewardController, :create
       patch "/rewards/:id", RewardController, :update
       put "/rewards/:id", RewardController, :update
       delete "/rewards/:id", RewardController, :delete
-      get "rewards/history/admin", RewardHistoryController, :admin_history
+      get "/rewards/history/admin", RewardHistoryController, :admin_history
     end
+
 end

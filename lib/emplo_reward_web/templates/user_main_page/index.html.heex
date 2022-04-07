@@ -2,7 +2,7 @@
 <div class="container">
     <div>
       <%= for user <- @users do %>
-      <%= if user != @current_user do %>
+      <%= if user != @current_user && user.role == "member" do %>
         <div class="d-flex w-100 justify-content-between">
             <h5>
             <%= user.full_name %>

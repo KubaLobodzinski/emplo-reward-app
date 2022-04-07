@@ -21,7 +21,7 @@
 <table>
   <thead>
     <tr>
-      <th>User ID </th>
+      <th>User ID</th>
       <th>Reward name</th>
       <th>Reward cost</th>
       <th>Date</th>

@@ -11,6 +11,7 @@ defmodule EmploRewardWeb.UserRegistrationController do
   end
 
   def create(conn, %{"user" => user_params}) do
+    user_params = Map.merge(user_params, %{"points" => 50, "points_granted" => 0})
     case Accounts.register_user(user_params) do
       {:ok, user} ->
         {:ok, _} =

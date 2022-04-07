@@ -8,7 +8,7 @@ defmodule EmploReward.Accounts.UserNotifier do
     email =
       new()
       |> to(recipient)
-      |> from({"MyApp", "contact@example.com"})
+      |> from({"EmploReward", "emploreward@gmail.com"})
       |> subject(subject)
       |> text_body(body)
 
@@ -35,6 +35,23 @@ defmodule EmploReward.Accounts.UserNotifier do
 
     ==============================
     """)
+  end
+
+  def deliver_reward(conn, user, reward_name) do
+    deliver(user.email, "Here is Your reward!", """
+
+    ==============================
+
+    Hi #{user.email},
+
+    You received a reward:
+
+    #{reward_name}
+
+    ==============================
+    """)
+
+    conn
   end
 
   @doc """

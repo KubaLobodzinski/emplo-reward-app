@@ -1,6 +1,12 @@
 <%= if @current_user do %>
 <p>Logged as: <%= @current_user.full_name %></p>
-  <h3><%= link "Settings", to: Routes.user_settings_path(@conn, :edit) %></h3>
+  <%= link "Rewards", to: Routes.reward_path(@conn, :index) %>
+  <%= if @current_user.role == "member" do %>
+  <%= link "Rewards History", to: Routes.reward_history_path(@conn, :user_history) %>
+  <% else %>
+  <%= link "Rewards History", to: Routes.reward_history_path(@conn, :admin_history) %>
+  <% end %>
+  <%= link "Settings", to: Routes.user_settings_path(@conn, :edit) %>
   <%= link "Log out", to: Routes.user_session_path(@conn, :delete), method: :delete %>
 <% else %>
   <%= link "Register", to: Routes.user_registration_path(@conn, :new) %>

@@ -1,0 +1,33 @@
+<h1>Listing All Rewards</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Description</th>
+      <th>Point cost</th>
+
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+<%= for reward <- @rewards do %>
+    <tr>
+      <td><%= reward.name %></td>
+      <td><%= reward.description %></td>
+      <td><%= reward.point_cost %></td>
+
+      <td>
+        <%= if @current_user.role == "admin" do %>
+        <span><%= link "Edit", to: Routes.reward_path(@conn, :edit, reward) %></span>
+        <span><%= link "Delete", to: Routes.reward_path(@conn, :delete, reward), method: :delete, data: [confirm: "Are you sure?"] %></span>
+        <% end %>
+      </td>
+    </tr>
+<% end %>
+  </tbody>
+</table>
+
+<%= if @current_user.role == "admin" do %>
+<span><%= link "New Reward", to: Routes.reward_path(@conn, :new) %></span>
+<% end %>

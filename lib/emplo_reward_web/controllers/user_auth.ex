@@ -156,4 +156,13 @@ defmodule EmploRewardWeb.UserAuth do
       |> halt()
     end
   end
+
+  def redirect_if_user_is_admin(conn, _params) do
+    if conn.assigns.current_user.role == "admin" do
+      conn
+      |> redirect(to: Routes.reward_path(conn, :admin_index))
+    else
+      conn
+    end
+  end
 end

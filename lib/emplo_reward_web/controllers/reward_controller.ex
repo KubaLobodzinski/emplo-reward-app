@@ -10,6 +10,11 @@ defmodule EmploRewardWeb.RewardController do
     render(conn, "index.html", rewards: rewards)
   end
 
+  def admin_index(conn, _params) do
+    rewards = Rewards.list_rewards()
+    render(conn, "admin_rewards_list.html", rewards: rewards)
+  end
+
   def new(conn, _params) do
     changeset = Rewards.change_reward(%Reward{})
     render(conn, "new.html", changeset: changeset)
@@ -70,6 +75,7 @@ defmodule EmploRewardWeb.RewardController do
           {:ok, _user} ->
             conn
             |> history_entry(entry)
+            |> Accounts.UserNotifier.deliver_reward(conn.assigns.current_user, reward.name)
             |> put_flash(:info, "Reward granted! You will get an email with your reward soon.")
             |> redirect(to: Routes.reward_path(conn, :index))
           {:error, _} ->

@@ -35,7 +35,7 @@ defmodule EmploReward.Accounts.User do
   """
   def registration_changeset(user, attrs, opts \\ []) do
     user
-    |> cast(attrs, [:email, :password, :full_name])
+    |> cast(attrs, [:email, :password, :full_name, :points, :points_granted])
     |> validate_email()
     |> validate_password(opts)
   end
