@@ -1,41 +1,45 @@
-<h1>Rewards History</h1>
+<h1 class="text-center">Rewards History</h1>
+<div class="container">
+  <div class="row justify-content-center">
+    <div class="col-2 mt-3">
+      <%= form_for @conn, Routes.reward_history_path(@conn, :admin_history), [method: :get], fn f -> %>
+        <%= select(f, :query, [
+                                "January": "01",
+                                "February": "02",
+                                "March": "03",
+                                "April": "04",
+                                "May": "05",
+                                "June": "06",
+                                "July": "07",
+                                "August": "08",
+                                "September": "09",
+                                "October": "10",
+                                "November": "11",
+                                "December": "12",
+                                ],class: "form-select")  %>
 
-<%= form_for @conn, Routes.reward_history_path(@conn, :admin_history), [method: :get], fn f -> %>
- <%= select(f, :query, [
-                        "January": "01",
-                        "February": "02",
-                        "March": "03",
-                        "April": "04",
-                        "May": "05",
-                        "June": "06",
-                        "July": "07",
-                        "August": "08",
-                        "September": "09",
-                        "October": "10",
-                        "November": "11",
-                        "December": "12",
-                        ])%>
-
- <%= submit "Search" %>
-<% end %>
-<table>
-  <thead>
-    <tr>
-      <th>User ID</th>
-      <th>Reward name</th>
-      <th>Reward cost</th>
-      <th>Date</th>
-      <th></th>
-    </tr>
-  </thead>
-  <tbody>
-<%= for reward <- @rewards do %>
-    <tr>
-      <td><%= reward.user_id %></td>
-      <td><%= reward.reward_name %></td>
-      <td><%= reward.reward_cost %></td>
-      <td><%= reward.inserted_at %></td>
-    </tr>
-<% end %>
-  </tbody>
-</table>
+        <%= submit "Search", class: "btn btn-secondary mt-2" %>
+      <% end %>
+  </div>
+    <div class="col-8">
+      <table class="table table-hover">
+        <thead>
+          <tr>
+            <th scope="col">Reward name</th>
+            <th scope="col">Reward cost</th>
+            <th scope="col">Date</th>
+          </tr>
+        </thead>
+        <tbody>
+        <%= for reward <- @rewards do %>
+          <tr>
+            <th scope="row"><%= reward.reward_name %></th>
+            <td><%= reward.reward_cost %></td>
+            <td><%= reward.inserted_at %></td>
+          </tr>
+        <% end %>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

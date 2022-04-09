@@ -1,27 +1,38 @@
-<h1>Log in</h1>
-
-<.form let={f} for={@conn} action={Routes.user_session_path(@conn, :create)} as={:user}>
-  <%= if @error_message do %>
-    <div class="alert alert-danger">
-      <p><%= @error_message %></p>
+<div class="container">
+  <div class="row">
+    <div class="col-8 mx-auto my-4">
+      <h1>Log In</h1>
     </div>
-  <% end %>
-
-  <%= label f, :email %>
-  <%= email_input f, :email, required: true %>
-
-  <%= label f, :password %>
-  <%= password_input f, :password, required: true %>
-
-  <%= label f, :remember_me, "Don't log me out" %>
-  <%= checkbox f, :remember_me %>
-
-  <div>
-    <%= submit "Log in" %>
   </div>
-</.form>
-
-<p>
-  <%= link "Register", to: Routes.user_registration_path(@conn, :new) %> |
-  <%= link "Forgot your password?", to: Routes.user_reset_password_path(@conn, :new) %>
-</p>
+  <div class="row">
+    <div class="col-xxl-8 mx-auto">
+      <.form let={f} for={@conn} action={Routes.user_session_path(@conn, :create)} as={:user}>
+        <%= if @error_message do %>
+          <div class="alert alert-danger pb-1">
+            <p><%= @error_message %></p>
+          </div>
+        <% end %>
+        <div class="mb-3">
+          <%= label f, :email, class: "form_label fw-bold"%>
+          <%= email_input f, :email, required: true, class: "form-control", aria_describedby: "emailHelp" %>  
+          <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>
+        </div>
+        <div class="mb-3">
+        <%= label f, :password, class: "form_label fw-bold" %>
+        <%= password_input f, :password, required: true, class: "form-control"%>
+        </div>
+        <div class="mb-3">
+        <%= checkbox f, :remember_me, class: "form-check-input" %>
+        <%= label f, :remember_me, "Don't log me out", class: "form-check-label" %>
+        </div>
+        <div class="mb-3">
+          <%= submit "Log in", class: "btn btn-secondary fw-bold text-dark" %>
+        </div>
+      </.form>
+      <p>
+        <%= link "Register", to: Routes.user_registration_path(@conn, :new), class: "link text-decoration-none" %> |
+        <%= link "Forgot your password?", to: Routes.user_reset_password_path(@conn, :new), class: "link text-decoration-none" %>
+      </p>
+    </div>
+  </div>
+</div>

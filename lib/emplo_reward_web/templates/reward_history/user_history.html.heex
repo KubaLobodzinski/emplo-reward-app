@@ -1,22 +1,26 @@
-<h1>Your Rewards History</h1>
+<h1 class="text-center">Your Rewards History</h1>
 
-<table>
-  <thead>
-    <tr>
-      <th>Reward name</th>
-      <th>Reward cost</th>
-      <th>Date</th>
-
-      <th></th>
-    </tr>
-  </thead>
-  <tbody>
-<%= for reward <- @rewards do %>
-    <tr>
-      <td><%= reward.reward_name %></td>
-      <td><%= reward.reward_cost %></td>
-      <td><%= reward.inserted_at %></td>
-    </tr>
-<% end %>
-  </tbody>
-</table>
+<div class="container">
+  <div class="row justify-content-center">
+    <div class="col-10">
+      <table class="table table-hover">
+        <thead>
+          <tr>  
+            <th scope="col">Reward name</th>
+            <th scope="col">Reward cost</th>
+            <th scope="col">Date</th>
+          </tr>
+        </thead>
+        <tbody>
+        <%= for reward <- @rewards do %>
+          <tr>
+            <th scope="row"><%= reward.reward_name %></th>
+            <td><%= reward.reward_cost %></td>
+            <td><%= reward.inserted_at %></td>
+          </tr>
+        <% end %>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

@@ -1,15 +1,35 @@
 <%= if @current_user do %>
-<p>Logged as: <%= @current_user.full_name %></p>
-  <%= link "Rewards", to: Routes.reward_path(@conn, :index) %>
-  <%= if @current_user.role == "member" do %>
-  <%= link "Rewards History", to: Routes.reward_history_path(@conn, :user_history) %>
-  <% else %>
-  <%= link "Rewards History", to: Routes.reward_history_path(@conn, :admin_history) %>
-  <% end %>
-  <%= link "Settings", to: Routes.user_settings_path(@conn, :edit) %>
-  <%= link "Log out", to: Routes.user_session_path(@conn, :delete), method: :delete %>
+<p class="border border-3 border-dark rounded fw-bold px-2 shadow-sm mt-2">
+  <strong>Logged as: </strong><%= @current_user.full_name %> |
+  <strong>Your points: </strong> <%= @current_user.points_granted %> |
+  <strong>Points to spend: </strong> <%= @current_user.points%>
+</p>
+<ul class="nav justify-content-end">
+  <li class="nav-item rounded m-1 hover fw-bold">
+    <%= link "Rewards", to: Routes.reward_path(@conn, :index), class: "nav-link link-dark", style: "text-decoration: none;" %>
+  </li>
+  <li class="nav-item rounded m-1 hover fw-bold">
+    <%= if @current_user.role == "member" do %>
+    <%= link "Rewards History", to: Routes.reward_history_path(@conn, :user_history), class: "nav-link link-dark", style: "text-decoration: none;" %>
+    <% else %>
+    <%= link "Rewards History", to: Routes.reward_history_path(@conn, :admin_history), class: "nav-link link-dark", style: "text-decoration: none;" %>
+    <% end %>
+  </li>
+  <li class="nav-item rounded m-1 hover fw-bold">
+    <%= link "Settings", to: Routes.user_settings_path(@conn, :edit), class: "nav-link link-dark", style: "text-decoration: none;" %>
+  </li>
+  <li class="nav-item rounded m-1 hover fw-bold">
+    <%= link "Log out", to: Routes.user_session_path(@conn, :delete), method: :delete, class: "nav-link link-dark", style: "text-decoration: none;" %>
+  </li>
+</ul> 
 <% else %>
-  <%= link "Register", to: Routes.user_registration_path(@conn, :new) %>
-  <%= link "Log in", to: Routes.user_session_path(@conn, :new) %>
+<ul class="nav justify-content-center">
+  <li class="nav-item rounded m-1 fw-bold hover">
+    <%= link "Register", to: Routes.user_registration_path(@conn, :new), class: "nav-link active link-dark", style: "text-decoration: none;" %>
+  </li>
+  <li class="nav-item rounded m-1 fw-bold hover">
+    <%= link "Log in", to: Routes.user_session_path(@conn, :new), class: "nav-link link-dark", style: "text-decoration: none;" %>
+  </li>
+</ul>
 <% end %>
 

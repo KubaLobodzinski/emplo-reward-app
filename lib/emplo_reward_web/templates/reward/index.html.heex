@@ -1,34 +1,27 @@
-<h1>Listing Rewards</h1>
+<h1 class="text-center">Available Rewards</h1>
 
-<table>
-  <thead>
-    <tr>
-      <th>Name</th>
-      <th>Description</th>
-      <th>Point cost</th>
-
-      <th></th>
-    </tr>
-  </thead>
-  <tbody>
-<%= for reward <- @rewards do %>
-    <tr>
-      <td><%= reward.name %></td>
-      <td><%= reward.description %></td>
-      <td><%= reward.point_cost %></td>
-
-      <td>
-        <%= if @current_user.role == "admin" do %>
-        <span><%= link "Edit", to: Routes.reward_path(@conn, :edit, reward) %></span>
-        <span><%= link "Delete", to: Routes.reward_path(@conn, :delete, reward), method: :delete, data: [confirm: "Are you sure?"] %></span>
+<div class="container">
+  <div class="row justify-content-center">
+    <div class="col-10">
+      <table class="table table-hover">
+        <thead>
+          <tr>  
+            <th scope="col">Name</th>
+            <th scope="col">Description</th>
+            <th scope="col">Point Cost</th>
+          </tr>
+        </thead>
+        <tbody>
+        <%= for reward <- @rewards do %>
+          <tr>
+            <th scope="row"><%= reward.name %></th>
+            <td><%= reward.description %></td>
+            <td><%= reward.point_cost %></td>
+            <td class="align-middle"><span><%= link "Get reward", to: Routes.reward_path(@conn, :grant_reward, reward), data: [confirm: "Are you sure you want this reward?"], class: "link link-dark border border-dark rounded p-1 hover", style: "text-decoration: none; white-space: nowrap;" %></span></td>
+          </tr>
         <% end %>
-        <span><%= link "Get reward", to: Routes.reward_path(@conn, :grant_reward, reward), data: [confirm: "Are you sure you want this reward?"] %></span>
-      </td>
-    </tr>
-<% end %>
-  </tbody>
-</table>
-
-<%= if @current_user.role == "admin" do %>
-<span><%= link "New Reward", to: Routes.reward_path(@conn, :new) %></span>
-<% end %>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

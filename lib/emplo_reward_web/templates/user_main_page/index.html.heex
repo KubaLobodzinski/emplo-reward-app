@@ -1,20 +1,31 @@
 <%# Displaying users from database and adding forms to grant them points %>
+
 <div class="container">
-    <div>
-      <%= for user <- @users do %>
-      <%= if user != @current_user && user.role == "member" do %>
-        <div class="d-flex w-100 justify-content-between">
-            <h5>
-            <%= user.full_name %>
-            </h5>
-            <%= form_for @changeset, Routes.user_add_points_path(@conn, :add), fn f ->  %>
-            <%= range_input f, :points_granted, min: 0, max: @current_user.points, step: 1, oninput: "this.nextElementSibling.value = this.value" %>
-            <output></output>
-            <%= hidden_input f, :id, value: user.id %>
-            <p><%= submit "Grant points" %></p>
-            <% end %>
-        </div>
-      <% end %>
-      <% end %>
+  <div class="row justify-content-center">
+    <%= for user <- @users do %>
+    <%= if user != @current_user && user.role == "member" do %>
+    <div class="col-xxl-5 col-xl-5 col-md-12 m-3 border border-2 rounded border-dark hover shadow">
+      <div class="img">
+        <img src={Routes.static_path(@conn, "/images/image.jpg")} class="img-thumbnail float-start my-2" style="width: 200px; height: 200px;" alt="Person's photo" />
+      </div>
+      <div class="text-center pt-2">
+        <h5>
+         <p><strong><%= user.full_name %></strong></p> 
+        </h5>
+        <hr>
+      </div>
+      <div class="row mt-5 text-center">
+        <%= form_for @changeset, Routes.user_add_points_path(@conn, :add), fn f ->  %>
+        <%= range_input f, :points_granted, min: 0, max: @current_user.points, value: 0, step: 1, oninput: "this.nextElementSibling.value = this.value", class: "range" %>
+        <output></output>
+        <%= hidden_input f, :id, value: user.id %>
+        <p>
+          <%= submit "Grant points", class: "btn btn-secondary"%>
+        </p>
+        <% end %>
+      </div>
     </div>
+    <% end %>
+    <% end %>
+  </div>
 </div>

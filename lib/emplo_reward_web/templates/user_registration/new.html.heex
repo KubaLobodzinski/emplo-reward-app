@@ -1,30 +1,45 @@
-<h1>Register</h1>
-
-<.form let={f} for={@changeset} action={Routes.user_registration_path(@conn, :create)}>
-  <%= if @changeset.action do %>
-    <div class="alert alert-danger">
-      <p>Oops, something went wrong! Please check the errors below.</p>
+<div class="container">
+  <div class="row">
+    <div class="col-8 mx-auto my-4">
+      <h1>Register</h1>
     </div>
-  <% end %>
-
-  <%= label f, :email %>
-  <%= email_input f, :email, required: true %>
-  <%= error_tag f, :email %>
-
-  <%= label f, :password %>
-  <%= password_input f, :password, required: true %>
-  <%= error_tag f, :password %>
-
-  <%= label f, :full_name %>
-  <%= text_input f, :full_name, required: true %>
-  <%= error_tag f, :full_name %>
-  
-  <div>
-    <%= submit "Register" %>
   </div>
-</.form>
-
-<p>
-  <%= link "Log in", to: Routes.user_session_path(@conn, :new) %> |
-  <%= link "Forgot your password?", to: Routes.user_reset_password_path(@conn, :new) %>
-</p>
+  <div class="row">
+    <div class="col-xxl-8 mx-auto">
+      <.form let={f} for={@changeset} action={Routes.user_registration_path(@conn, :create)} options={:multipart}>
+        <%= if @changeset.action do %>
+          <div class="alert alert-danger pb-1">
+            <p>Oops, something went wrong! Please check the errors below.</p>
+          </div>
+        <% end %>
+        <div class="mb-3">
+          <%= label f, :email, class: "form_label fw-bold"%>
+          <%= email_input f, :email, required: true, class: "form-control", aria_describedby: "emailHelp" %>  
+          <div id="emailHelp" class="form-text">You will get an email with confirmation link once registered.</div>
+          <%= error_tag f, :email %>
+        </div>
+        <div class="mb-3">
+          <%= label f, :password, class: "form_label fw-bold" %>
+          <%= password_input f, :password, required: true, class: "form-control", aria_describedby: "passwordHelp" %>
+          <div id="passwordHelp" class="form-text">Your password must be at least 6 characters long.</div>
+          <%= error_tag f, :password %>
+        </div>
+        <div class="mb-3">
+           <%= label f, :full_name, class: "form_label fw-bold" %>
+            <%= text_input f, :full_name, required: true, class: "form-control" %>
+            <%= error_tag f, :full_name %>
+        </div>
+        <div class="mb-3">
+          
+        </div>
+        <div class="mb-3">
+          <%= submit "Register", class: "btn btn-secondary fw-bold text-dark" %>
+        </div>
+      </.form>
+      <p>
+        <%= link "Log in", to: Routes.user_session_path(@conn, :new), class: "link", style: "text-decoration: none" %> |
+        <%= link "Forgot your password?", to: Routes.user_reset_password_path(@conn, :new), class: "link", style: "text-decoration: none"  %>
+      </p>
+    </div>
+  </div>
+</div>
