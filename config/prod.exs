@@ -17,7 +17,9 @@ config :emplo_reward, EmploRewardWeb.Endpoint,
       cipher_suite: :strong,
       keyfile: System.get_env("SOME_APP_SSL_KEY_PATH"),
       certfile: System.get_env("SOME_APP_SSL_CERT_PATH")
-    ]
+    ],
+    load_from_system_env: true,
+    cache_static_manifest: "priv/static/cache_manifest.json"
 # Do not print debug messages in production
 config :logger, level: :info
 #
