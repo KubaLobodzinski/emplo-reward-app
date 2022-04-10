@@ -25,7 +25,7 @@ defmodule EmploRewardWeb.RewardController do
       {:ok, _reward} ->
         conn
         |> put_flash(:info, "Reward created successfully.")
-        |> redirect(to: Routes.reward_path(conn, :index))
+        |> redirect(to: Routes.reward_path(conn, :admin_index))
 
       {:error, %Ecto.Changeset{} = changeset} ->
         render(conn, "new.html", changeset: changeset)

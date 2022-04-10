@@ -146,23 +146,26 @@ defmodule EmploRewardWeb.UserAuth do
 
   defp signed_in_path(_conn), do: "/"
 
-  def require_admin_user(conn, _opts) do
-    if conn.assigns.current_user.role == "admin" do
-      conn
-    else
-      conn
-      |> put_flash(:error, "You must be an admin to acces this page!")
-      |> redirect(to: Routes.user_main_page_path(conn, :index))
-      |> halt()
-    end
-  end
 
-  def redirect_if_user_is_admin(conn, _params) do
-    if conn.assigns.current_user.role == "admin" do
-      conn
-      |> redirect(to: Routes.reward_path(conn, :admin_index))
-    else
-      conn
+  if Mix.env != "test" do
+    def require_admin_user(conn, _opts) do
+      if conn.assigns.current_user.role == "admin" do
+        conn
+      else
+        conn
+        |> put_flash(:error, "You must be an admin to acces this page!")
+        |> redirect(to: Routes.user_main_page_path(conn, :index))
+        |> halt()
+      end
+    end
+
+    def redirect_if_user_is_admin(conn, _params) do
+      if conn.assigns.current_user.role == "admin" do
+        conn
+        |> redirect(to: Routes.reward_path(conn, :admin_index))
+      else
+        conn
+      end
     end
   end
 end

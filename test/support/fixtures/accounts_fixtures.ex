@@ -12,7 +12,8 @@ defmodule EmploReward.AccountsFixtures do
     Enum.into(attrs, %{
       email: unique_user_email(),
       password: valid_user_password(),
-      full_name: valid_user_name()
+      full_name: valid_user_name(),
+      role: "member"
     })
   end
 
