@@ -1,0 +1,29 @@
+.alert:empty{
+  display: none;
+}
+
+body {
+  padding-bottom: 80px;
+}
+
+.hover {
+ -webkit-transition: .3s all;   
+ -webkit-transition-delay: .05s; 
+ -moz-transition: .3s all;   
+ -moz-transition-delay: .05s; 
+ -ms-transition: .3s all;   
+ -ms-transition-delay: .05s; 
+ -o-transition: .3s all;   
+ -o-transition-delay: .05s; 
+ transition: .3s all;   
+ transition-delay: .05s; 
+}
+
+.hover:hover {
+ background:#0000003a;
+ -webkit-transition-delay: 0s;
+ -moz-transition-delay: 0s;
+ -ms-transition-delay: 0s;
+ -o-transition-delay: 0s;
+ transition-delay: 0s;
+}
