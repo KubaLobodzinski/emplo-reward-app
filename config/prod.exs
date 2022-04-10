@@ -22,7 +22,7 @@ config :logger, level: :info,
 url: [scheme: "https", host: "radiant-castle-65166.herokuapp.com", port: 443],
 force_ssl: [rewrite_on: [:x_forwarded_proto]],
 https: [
-  port: 443,
+  port: {:system, "PORT"},
   cipher_suite: :strong,
   keyfile: System.get_env("SOME_APP_SSL_KEY_PATH"),
   certfile: System.get_env("SOME_APP_SSL_CERT_PATH")
