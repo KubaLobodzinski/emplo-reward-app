@@ -1,5 +1,7 @@
-<h1>Edit Reward</h1>
+<div class="row">
+    <div class="col-8 mx-auto my-4">
+      <h1>Edit Reward</h1>
+    </div>
+  </div>
 
 <%= render "form.html", Map.put(assigns, :action, Routes.reward_path(@conn, :update, @reward)) %>
-
-<span><%= link "Back", to: Routes.reward_path(@conn, :index) %></span>

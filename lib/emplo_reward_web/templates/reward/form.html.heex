@@ -1,23 +1,33 @@
-<.form let={f} for={@changeset} action={@action}>
-  <%= if @changeset.action do %>
-    <div class="alert alert-danger">
-      <p>Oops, something went wrong! Please check the errors below.</p>
+<div class="container">
+  <div class="row">
+    <div class="col-xxl-8 mx-auto">
+      <.form let={f} for={@changeset} action={@action}>
+        <%= if @changeset.action do %>
+          <div class="alert alert-danger pb-1">
+            <p>Oops, something went wrong! Please check the errors below.</p>
+          </div>
+        <% end %>
+        <div class="mb-3">
+          <%= label f, :name, class: "form_label fw-bold"%>
+          <%= email_input f, :name, required: true, class: "form-control" %>  
+          <%= error_tag f, :name %>
+        </div>
+        <div class="mb-3">
+          <%= label f, :description, class: "form_label fw-bold" %>
+          <%= password_input f, :description, required: true, class: "form-control" %>
+          <%= error_tag f, :description %>
+        </div>
+        <div class="mb-3">
+           <%= label f, :point_cost, class: "form_label fw-bold" %>
+            <%= text_input f, :point_cost, required: true, class: "form-control" %>
+            <%= error_tag f, :point_cost %>
+        </div>
+        <div class="mb-3">
+          <%= submit "Save", class: "btn btn-secondary fw-bold text-dark" %>
+          <span><%= link "Back", to: Routes.reward_path(@conn, :index), class: "btn btn-secondary fw-bold text-dark" %></span>
+        </div>
+      </.form>
+      
     </div>
-  <% end %>
-
-  <%= label f, :name %>
-  <%= text_input f, :name %>
-  <%= error_tag f, :name %>
-
-  <%= label f, :description %>
-  <%= text_input f, :description %>
-  <%= error_tag f, :description %>
-
-  <%= label f, :point_cost %>
-  <%= number_input f, :point_cost %>
-  <%= error_tag f, :point_cost %>
-
-  <div>
-    <%= submit "Save" %>
   </div>
-</.form>
+</div>
