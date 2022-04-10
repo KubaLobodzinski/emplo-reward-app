@@ -11,7 +11,7 @@ import Config
 # before starting your production server.
 config :emplo_reward, EmploRewardWeb.Endpoint,
     http: [port: {:system, "PORT"}],
-    url: [scheme: "https", host: "radiant-castle-65166.herokuapp.com", port: 443],
+    url: [scheme: "https", host: "quiet-springs-24288.herokuapp.com", port: 443],
     force_ssl: [rewrite_on: [:x_forwarded_proto]],
     cache_static_manifest: "priv/static/cache_manifest.json"
 
